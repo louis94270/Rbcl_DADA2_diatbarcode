@@ -284,6 +284,7 @@ write.csv(tax,
 exact_sp <- as.data.frame(exact_sp)
 exact_sp <- cbind(rownames(exact_sp), exact_sp)
 colnames(exact_sp)[1] <- "DNA_SEQ"
+colnames(tax)[2] <- "ASV"
 write.csv(exact_sp,
           file.path(path_results, "seq_nochim_exact_sp.csv"),
           row.names = FALSE)
