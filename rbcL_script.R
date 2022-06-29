@@ -314,8 +314,11 @@ table(contam_df$contaminant)
 
 # getting vector holding the identified contaminant IDs
 contam_asvs <- row.names(contam_df[contam_df$contaminant == TRUE, ])
-asv_tax[contam_asvs, ]
-
+tax_contam <- tax[as.numeric(contam_asvs), ]
+write.csv(tax_contam,
+          file.path(path_results,
+                    "contam_seq_tax.csv"),
+                    row.names = FALSE)
 # making new fasta file
 contam_indices <- which(asv_fasta %in% paste0(">ASV_", contam_asvs))
 dont_want <- sort(c(contam_indices, contam_indices + 1))
@@ -325,7 +328,7 @@ asv_fasta_no_contam <- asv_fasta[- dont_want]
 asv_tab_no_contam <- asv_tab[!asv_tab$ASV %in% paste0("ASV_", contam_asvs), ]
 
 # making new taxonomy table
-asv_tax_no_contam <- asv_tax[!asv_tax$ASV %in% paste0("ASV_", contam_asvs), ]
+asv_tax_no_contam <- tax[!tax$ASV %in% paste0("ASV_", contam_asvs), ]
 
 dim(asv_tab_no_contam)
 dim(asv_tax_no_contam)
